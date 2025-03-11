@@ -1,0 +1,45 @@
+﻿@model Duty
+
+
+<form >
+    <div class="row form-group">
+        <div >
+            <label asp-for="@Model.Title"></label>
+            <input asp-for=" @Model.Title" />
+        </div>
+        <div>
+            <label asp-for="@Model.Description"></label>
+            <input asp-for=" @Model.Description" />
+           
+
+        <div>
+            <label asp-for="@Model.Priority" class="form-label"></label>
+            <select asp-for="@Model.Priority" asp-items="Html.GetEnumSelectList<Priority>()" class="form-select">
+                <option value="">-- Select Priority --</option>
+            </select>
+        </div>
+
+        <div>
+            <label asp-for="@Model.Status" class="form-label"></label>
+            <select asp-for="@Model.Status" asp-items="Html.GetEnumSelectList<Status>()" class="form-select">
+                <option value="">-- Select Status --</option>
+            </select>
+        </div>
+
+        <div>
+            <label asp-for="@Model.Duration" class="form-label"></label>
+            <input asp-for="@Model.Duration" class="form-control" type="time" />
+        </div>
+
+        <div>
+            <label asp-for="@Model.DueDate" class="form-label"></label>
+            <input asp-for="@Model.DueDate" class="form-control" type="date" />
+        </div>
+        <div >
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </div>
+
+
+
+</form>

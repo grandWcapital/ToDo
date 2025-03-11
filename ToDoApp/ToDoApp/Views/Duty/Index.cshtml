@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Duty>
+<h2>Duties</h2>
+<hr />
+@if(!Model.Any())
+{
+    <h3>No duties found</h3>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Duration</th>
+            <th>Due Date</th>
+        </tr>
+        @foreach (var duty in Model)
+        {
+            <tr>
+                <td>@duty.Id</td>
+                <td>@duty.Title</td>
+                <td>@duty.Description</td>
+                <td>@duty.Status</td>
+                <td>@duty.Priority</td>
+                <td>@duty.Duration</td>
+                <td>@duty.DueDate</td>
+            </tr>
+        }
+
+    </table>
+}
+<a asp-controller="Duty" asp-action="Index">Add</a>
