@@ -1,33 +1,60 @@
-﻿@model Duty
+﻿@model DutyViewModel
+
+<h2>You want a duty</h2>
+<hr />
 
 
-<form >
-    <div class="row form-group">
-        <div >
-            <label asp-for="@Model.Title"></label>
-            <input asp-for=" @Model.Title" />
-        </div>
-        <div>
-            <label asp-for="@Model.Description"></label>
-            <input asp-for=" @Model.Description" />
-           
-
-   
-
-        <div>
-            <label asp-for="@Model.Duration" class="form-label"></label>
-            <input asp-for="@Model.Duration" class="form-control" type="time" />
-        </div>
-
-        <div>
-            <label asp-for="@Model.DueDate" class="form-label"></label>
-            <input asp-for="@Model.DueDate" class="form-control" type="date" />
-        </div>
-        <div >
-            <button type="submit" class="btn btn-primary">Add</button>
-        </div>
+<form asp-action="Add" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <label asp-for="Duty.Title"></label>
+        <input asp-for="Duty.Title" />
+        <span asp-validation-for="Duty.Title"></span>
     </div>
 
+    <div>
+        <label asp-for="Duty.Description"></label>
+        <textarea asp-for="Duty.Description"></textarea>
+        <span asp-validation-for="Duty.Description"></span>
+    </div>
+
+    <div>
+        <label asp-for="Duty.CategoryId"></label>
+        <select asp-for="Duty.CategoryId" asp-items="@Model.Categories">
+            <option value="">Select Category</option>
+        </select>
+        <span asp-validation-for="Duty.CategoryId"></span>
+    </div>
+
+    <div>
+        <label asp-for="Duty.Priority"></label>
+        <select asp-for="Duty.Priority" asp-items="@Model.Priorities">
+            <option value="">Select Priority</option>
+        </select>
+        <span asp-validation-for="Duty.Priority"></span>
+    </div>
+
+    <div>
+        <label asp-for="Duty.Status"></label>
+        <select asp-for="Duty.Status" asp-items="@Model.Statuses">
+            <option value="">Select Status</option>
+        </select>
+        <span asp-validation-for="Duty.Status"></span>
+    </div>
+
+    <div>
+        <label asp-for="Duty.Duration"></label>
+        <input asp-for="Duty.Duration" type="time" />
+        <span asp-validation-for="Duty.Duration"></span>
+    </div>
+
+    <div>
+        <label asp-for="Duty.DueDate"></label>
+        <input asp-for="Duty.DueDate" type="date" />
+        <span asp-validation-for="Duty.DueDate"></span>
+    </div>
+    <input type="submit" value="Add category"  />
 
 
-</form>
+
+    </form>

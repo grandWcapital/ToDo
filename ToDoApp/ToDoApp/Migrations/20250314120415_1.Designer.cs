@@ -12,8 +12,8 @@ using ToDoApp.Models;
 namespace ToDoApp.Migrations
 {
     [DbContext(typeof(ToDoAppDbContext))]
-    [Migration("20250314071129_Init")]
-    partial class Init
+    [Migration("20250314120415_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,7 @@ namespace ToDoApp.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ToDoApp.Models.Duty", b =>

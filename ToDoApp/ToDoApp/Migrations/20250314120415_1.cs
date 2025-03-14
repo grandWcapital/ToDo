@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ToDoApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class _1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Categories",
                 columns: table => new
                 {
                     CategoryId = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace ToDoApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.CategoryId);
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,9 +68,9 @@ namespace ToDoApp.Migrations
                 {
                     table.PrimaryKey("PK_Duties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Duties_Category_CategoryId",
+                        name: "FK_Duties_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "CategoryId");
                     table.ForeignKey(
                         name: "FK_Duties_Priorities_PriorityId",
@@ -107,7 +107,7 @@ namespace ToDoApp.Migrations
                 name: "Duties");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Priorities");

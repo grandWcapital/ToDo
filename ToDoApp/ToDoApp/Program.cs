@@ -7,6 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IDutyRepository, DutyRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IStatusRepository, StatusRepository>();
+
+builder.Services.AddScoped<IPriorityRepository, PriorityRepository>();
+
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication().AddCookie();
 builder.Services.AddDbContext<ToDoAppDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("ToDoAppDbContextConnection")));
