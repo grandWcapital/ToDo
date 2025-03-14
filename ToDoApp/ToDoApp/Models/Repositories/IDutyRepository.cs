@@ -2,7 +2,9 @@
 {
     public interface IDutyRepository
     {
-       Task<IEnumerable<Duty>> GetDuties();
-       Task<int> Add(Duty duty);
+        Task<int> GetAllPiesCountAsync();
+       Task<IEnumerable<Duty>> GetDutiesPaged(int? PageNumber, int PageSize);
+       
+        Task<int> Add(Duty duty);
     }
 }

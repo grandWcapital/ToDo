@@ -5,23 +5,29 @@ namespace ToDoApp.Models.Repositories
 {
     public class DutyRepository : IDutyRepository
     {
-      
-        private   readonly ToDoAppDbContext toDoAppDbContext; 
-        public DutyRepository (ToDoAppDbContext toDoAppDbContext)
+        private readonly ToDoAppDbContext _dbContext;
+        public DutyRepository(ToDoAppDbContext dbContext)
         {
-            this.toDoAppDbContext = toDoAppDbContext;
+            _dbContext = dbContext;
         }
         public async Task<int> Add(Duty duty)
         {
-            toDoAppDbContext.Duties.AddAsync(duty);
-            return await toDoAppDbContext.SaveChangesAsync();
+           _dbContext.Add(duty);
+            return  await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Duty>> GetDuties()
-
+        public async Task<int> GetAllPiesCountAsync()
         {
-            var duties = await toDoAppDbContext.Duties.Select(x => x).ToListAsync();
-            return duties;
+           return await _dbContext.Duties.CountAsync();
+        }
+
+        public async Task<IEnumerable<Duty>> GetDutiesPaged(int? PageNumber, int PageSize)
+        {
+            IQueryable<Duty> duties = _dbContext.Duties.Select(x=>x) ;
+            PageNumber ??= 1;
+
+            duties = duties.Skip((PageNumber.Value - 1) * PageSize).Take(PageSize);    
+            return await duties.AsNoTracking().ToListAsync();
         }
     }
 }

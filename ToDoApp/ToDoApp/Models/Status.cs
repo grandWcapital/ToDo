@@ -1,11 +1,10 @@
 ﻿namespace ToDoApp.Models
 {
-    public enum Status
+    public class Status
     {
-        notStarted,
-        InProgress,
-        Completed
-
+        public int StatusId { get; set; }
+        public string Name { get; set; }
+        public ICollection<Duty>? Duties { get; set; }
 
 
 

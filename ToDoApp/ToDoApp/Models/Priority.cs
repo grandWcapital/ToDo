@@ -1,11 +1,10 @@
 ﻿namespace ToDoApp.Models
 {
-    public enum Priority
+    public class Priority
     {
-        Low,
-        Medium,
-        High,
-        Urgent
+        public int PriorityId { get; set; }
+        public string Name { get; set; }
+        public ICollection<Duty>? Duties { get; set; }
     }
    
 }

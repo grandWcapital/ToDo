@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Duty>
+﻿@using ToDoApp.Utilities;
+@model PagedList<Duty>
+
+
 <h2>Duties</h2>
 <hr />
 @if(!Model.Any())
@@ -32,4 +35,21 @@ else
 
     </table>
 }
+@{
+    var previousButtonDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextButtonDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="IndexPaging" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-default @previousButtonDisabled">
+    Previous
+</a>
+<a asp-action="IndexPaging" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-default @nextButtonDisabled">
+    Next
+</a>
+
+
+<p>
+    <a class="btn btn-primary" asp-action="Add">Add new pie</a>
+</p>
+
 <a asp-controller="Duty" asp-action="Index">Add</a>

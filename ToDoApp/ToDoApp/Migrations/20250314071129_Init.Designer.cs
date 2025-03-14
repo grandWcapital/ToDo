@@ -12,8 +12,8 @@ using ToDoApp.Models;
 namespace ToDoApp.Migrations
 {
     [DbContext(typeof(ToDoAppDbContext))]
-    [Migration("20250311123500_firstMigration")]
-    partial class firstMigration
+    [Migration("20250314071129_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,17 +27,17 @@ namespace ToDoApp.Migrations
 
             modelBuilder.Entity("ToDoApp.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Category");
                 });
@@ -50,7 +50,7 @@ namespace ToDoApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -60,16 +60,14 @@ namespace ToDoApp.Migrations
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("Duration")
+                    b.Property<TimeSpan?>("Duration")
                         .HasColumnType("time");
 
-                    b.Property<string>("Priority")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int?>("PriorityId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -79,21 +77,79 @@ namespace ToDoApp.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("PriorityId");
+
+                    b.HasIndex("StatusId");
+
                     b.ToTable("Duties");
+                });
+
+            modelBuilder.Entity("ToDoApp.Models.Priority", b =>
+                {
+                    b.Property<int>("PriorityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PriorityId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PriorityId");
+
+                    b.ToTable("Priorities");
+                });
+
+            modelBuilder.Entity("ToDoApp.Models.Status", b =>
+                {
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StatusId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StatusId");
+
+                    b.ToTable("Statuses");
                 });
 
             modelBuilder.Entity("ToDoApp.Models.Duty", b =>
                 {
                     b.HasOne("ToDoApp.Models.Category", "Category")
                         .WithMany("Duties")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("ToDoApp.Models.Priority", "Priority")
+                        .WithMany("Duties")
+                        .HasForeignKey("PriorityId");
+
+                    b.HasOne("ToDoApp.Models.Status", "Status")
+                        .WithMany("Duties")
+                        .HasForeignKey("StatusId");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Priority");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("ToDoApp.Models.Category", b =>
+                {
+                    b.Navigation("Duties");
+                });
+
+            modelBuilder.Entity("ToDoApp.Models.Priority", b =>
+                {
+                    b.Navigation("Duties");
+                });
+
+            modelBuilder.Entity("ToDoApp.Models.Status", b =>
                 {
                     b.Navigation("Duties");
                 });
